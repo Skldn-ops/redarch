@@ -12,7 +12,7 @@ ENABLE_FSTRIM=true
 
 TARGET_USER=$(id -un)
 BACKUP_DIR="$HOME/.arch-setup-backups/$(date +%Y%m%d-%H%M%S)-$$"
-WORK_DIR=""
+WORK_DIR=$(mktemp -d)
 trap 'printf "\nError on line %s. Copies: %s\n" "$LINENO" "$BACKUP_DIR" >&2' ERR
 trap '[[ -z "$WORK_DIR" ]] || rm -rf -- "$WORK_DIR"' EXIT
 step() { printf '\n=== %s ===\n' "$*"; }
@@ -39,7 +39,6 @@ done
 [[ -d "$DOT_ROOT/.config" ]] || fail 'No .config directory'
 sudo -v
 mkdir -p -m 700 "$BACKUP_DIR" "$BACKUP_DIR/home" "$BACKUP_DIR/system"
-WORK_DIR=$(mktemp -d)
 
 backup_system() {
     local file=$1
