@@ -1,0 +1,12 @@
+configuration {
+  modi: "drun,run,window";
+  show-icons: true;
+  icon-theme: "Papirus-Dark";
+  display-drun: "Приложения";
+  display-run: "Команда";
+  display-window: "Окна";
+  drun-display-format: "{name}";
+  font: "Inter 12";
+  terminal: "foot";
+}
+@theme "style"

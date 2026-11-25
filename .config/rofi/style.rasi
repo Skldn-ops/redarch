@@ -1,0 +1,45 @@
+* {
+    bg: #121014ef;
+    panel: #1c1724fa;
+    line: #3f304b;
+    text: #ede6ef;
+    muted: #a99aaf;
+    lavender: #b891f5;
+    rose: #db5572;
+    highlight: #36283e;
+    background-color: transparent;
+    text-color: @text;
+    font: "JetBrainsMono Nerd Font 12";
+}
+window {
+    width: 810px;
+    location: center;
+    anchor: center;
+    border: 2px;
+    border-color: @line;
+    border-radius: 20px;
+    background-color: @bg;
+    padding: 24px;
+}
+mainbox { spacing: 16px; children: [ inputbar, message, listview ]; }
+inputbar {
+    background-color: @panel;
+    border-radius: 12px;
+    border: 1px;
+    border-color: @line;
+    padding: 12px 15px;
+    spacing: 12px;
+    children: [ prompt, entry ]; 
+}
+prompt { text-color: @lavender; }
+entry { placeholder: "Поиск приложений…"; placeholder-color: @muted; }
+listview { lines: 8; columns: 1; spacing: 6px; fixed-height: false; scrollbar: false; }
+element { padding: 10px 12px; border-radius: 12px; spacing: 12px; orientation: horizontal; }
+element normal.normal { background-color: transparent; }
+element selected.normal { background-color: @highlight; }
+element selected.active { background-color: @highlight; }
+element-icon { size: 26px; background-color: transparent; }
+element-text { vertical-align: 0.5; text-color: @text; }
+element selected.normal element-text { text-color: @lavender; }
+message { border: 0; padding: 0; }
+textbox { text-color: @muted; }

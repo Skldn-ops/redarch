@@ -1,0 +1,14 @@
+sudo systemctl enable --now NetworkManager
+
+sudo systemctl enable --now systemd-resolved
+
+printf '[main]\ndns=systemd-resolved\n' | \
+sudo tee /etc/NetworkManager/conf.d/dns.conf
+
+sudo cp -a /etc/resolv.conf /etc/resolv.conf.backup
+
+sudo ln -sfn /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+sudo openvpn3-admin netcfg-service --config-set systemd-resolved true
+
+sudo systemctl restart NetworkManager

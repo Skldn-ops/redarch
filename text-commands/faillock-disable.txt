@@ -1,0 +1,3 @@
+sudo vim /etc/security/faillock.conf
+
+deny=0

@@ -1,0 +1,148 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 38,
+  "margin-top": 1,
+  "margin-left": 12,
+  "margin-right": 12,
+  "spacing": 4,
+  "modules-left": [
+    "custom/menu",
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "network",
+    "pulseaudio",
+    "battery",
+    "hyprland/language",
+    "tray",
+    "custom/notification",
+    "clock"
+  ],
+  "custom/menu": {
+    "format": "󰣇",
+    "tooltip": "Меню приложений",
+    "on-click": "rofi -show drun",
+    "on-click-right": "rofi -show run"
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "disable-scroll": false,
+    "format": "{name}",
+    "tooltip": false,
+    "sort-by": "number",
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "hyprland/submap": {
+    "format": "󰘳  {}",
+    "tooltip": false
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 49,
+    "separate-outputs": true,
+    "tooltip": true,
+    "rewrite": {
+      "^$": "Рабочий стол"
+    }
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "󰍛  {usage}%",
+    "tooltip-format": "CPU: {usage}% · частота {avg_frequency} GHz",
+    "on-click": "foot -e btop",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰘚  {}%",
+    "tooltip-format": "RAM: {used:0.1f} GiB / {total:0.1f} GiB",
+    "on-click": "foot -e btop"
+  },
+  "network": {
+    "interval": 5,
+    "format-wifi": "󰤨  {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "format-linked": "󰤭",
+    "tooltip-format-wifi": "{essid}\nIP: {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Нет подключения"
+  },
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "󰖁",
+    "format-icons": {
+      "headphone": "󰋋",
+      "headset": "󰋎",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "battery": {
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}  {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-plugged": "󰂄  {capacity}%",
+    "format-icons": [
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
+  },
+  "hyprland/language": {
+    "format": "󰌌  {short}",
+    "tooltip": false,
+    "on-click": "hyprctl switchxkblayout all next"
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 9
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "󰂚",
+    "return-type": "json",
+    "exec-if": "command -v swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw"
+  },
+  "clock": {
+    "format": "󰥔  {:%a %H:%M}",
+    "format-alt": "{:%d.%m.%Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "iso8601": true
+    }
+  }
+}

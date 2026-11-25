@@ -1,0 +1,8 @@
+[terminal]
+# The VT to run the greeter on. Can be "next", "current" or a number
+# designating the VT.
+vt = 1
+
+[default_session]
+command = "tuigreet --time --remember --asterisks --width 70 --theme 'border=magenta;text=white;time=cyan;prompt=magenta;input=white;action=cyan;button=magenta' --cmd start-hyprland"
+user = "greeter"

@@ -1,0 +1,10 @@
+sudo vim /etc/systemd/logind.conf
+
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore
+
+sudo systemctl restart systemd-logind
+
+Проверить, что поменялось:
+systemd-analyze cat-config systemd/logind.conf | grep -i lid

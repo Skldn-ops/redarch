@@ -1,0 +1,9 @@
+@define-color bg rgba(16,16,14,0.85);
+@define-color bg_hover rgba(70,42,74,0.72);
+@define-color fg #e7deeb;
+@define-color muted #9e91a9;
+@define-color red #db5572;
+@define-color deep_red #c40233;
+@define-color lavender #b891f5;
+@define-color magenta #e6a1cf;
+@define-color border rgba(184,145,245,0.20);
