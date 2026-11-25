@@ -10,7 +10,6 @@ DISABLE_FAILLOCK=true
 ENABLE_DOCKER=true
 ENABLE_FSTRIM=true
 
-BASE_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 TARGET_USER=$(id -un)
 BACKUP_DIR="$HOME/.arch-setup-backups/$(date +%Y%m%d-%H%M%S)-$$"
 WORK_DIR=""
@@ -23,9 +22,21 @@ fail() { printf '%s\n' "$*" >&2; exit 1; }
 [[ -n "$DOTFILES_REPO" ]] || fail 'DOTFILES_REPO NOT DEFINED'
 [[ -f /etc/arch-release ]] || fail 'Only for Arch Linux.'
 [[ -t 0 ]] || fail 'Launch script in interactive mode'
-for file in packages.txt aur-packages.txt kdeglobals greetd/config.toml; do
+
+step 'Install Git'
+sudo pacman -Syu --needed --noconfirm git
+
+step 'Download repository'
+git clone -- "$DOTFILES_REPO" "$WORK_DIR/dotfiles"
+
+BASE_DIR="$WORK_DIR/dotfiles"
+DOT_ROOT="$BASE_DIR/$DOTFILES_SUBDIR"
+
+for file in packages.txt aur-packages.txt greetd/config.toml; do
     [[ -f "$BASE_DIR/$file" ]] || fail "No file $file"
 done
+
+[[ -d "$DOT_ROOT/.config" ]] || fail 'No .config directory'
 sudo -v
 mkdir -p -m 700 "$BACKUP_DIR" "$BACKUP_DIR/home" "$BACKUP_DIR/system"
 WORK_DIR=$(mktemp -d)
@@ -61,11 +72,6 @@ if ((${#aur_packages[@]})); then
     # Interactive by design: inspect PKGBUILDs and approve AUR builds.
     yay -S --needed "${aur_packages[@]}"
 fi
-
-step 'Download dotfiles'
-git clone -- "$DOTFILES_REPO" "$WORK_DIR/dotfiles"
-DOT_ROOT="$WORK_DIR/dotfiles/$DOTFILES_SUBDIR"
-[[ -d "$DOT_ROOT/.config" ]] || fail 'No .config: CHECK DOTFILES_SUBDIR and repo structure.'
 
 step 'Rsync dotfiles to .config'
 for path in "${DOTFILES_PATHS[@]}"; do
