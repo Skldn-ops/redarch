@@ -1,4 +1,3 @@
--- Sway binding migration. SUPER = old Mod4. See KEYBINDS.md for limitations.
 local M = "SUPER"
 local function bind(keys, dispatcher)
   hl.bind(keys, dispatcher)
@@ -41,7 +40,6 @@ for index = 1, 10 do
   bind(M .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = tostring(index) }))
 end
 
--- Nearest Hyprland Dwindle equivalent to Sway's B/V/E split commands.
 bind(M .. " + B", hl.dsp.layout("preselect r"))  -- Next tile next to current
 bind(M .. " + V", hl.dsp.layout("preselect d"))  -- Next tile below current
 bind(M .. " + E", hl.dsp.layout("togglesplit")) -- Flip current split
@@ -54,15 +52,12 @@ hl.bind(
     { locked = true }
 )
 
--- Sway stacking/tabbed are not exact 1:1 in Dwindle; Hyprland groups are closest.
 bind(M .. " + S", hl.dsp.group.toggle())
 bind(M .. " + W", hl.dsp.group.next())
 
--- Sway scratchpad mapped to special workspace named 'scratch'.
 bind(M .. " + SHIFT + minus", hl.dsp.window.move({ workspace = "special:scratch" }))
 bind(M .. " + minus", hl.dsp.workspace.toggle_special("scratch"))
 
--- Resize mode: same h/j/k/l + arrows + Enter/Escape, 10 px per keypress.
 bind(M .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
   local resizing = {
@@ -78,11 +73,11 @@ hl.define_submap("resize", function()
   hl.bind("Escape", hl.dsp.submap("reset"))
 end)
 
--- Window drag/resize with SUPER + mouse, equivalent to Sway floating_modifier.
+-- Window drag/resize with SUPER + mouse
 hl.bind(M .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(M .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Media keybinds work at lockscreen (as in original --locked).
+-- Media keybinds work at lockscreen
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })

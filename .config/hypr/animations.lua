@@ -1,4 +1,3 @@
--- Springlike and smooth, without drawn-out transitions (~250-450ms).
 hl.curve("soft_out", { type = "bezier", points = { {0.22, 1.0}, {0.36, 1.0} } })
 hl.curve("soft_inout", { type = "bezier", points = { {0.76, 0.0}, {0.24, 1.0} } })
 hl.animation({ leaf = "windows", enabled = true, speed = 1.5, bezier = "soft_out", style = "popin 89%" })

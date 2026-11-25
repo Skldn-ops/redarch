@@ -1,5 +1,4 @@
 -- Original palette: #10100e, #c40233, #9d00ff, #ff1493.
--- Gentle modern treatment: thinner borders + soft lavender instead of full neon.
 hl.config({
   general = {
     gaps_in = 1,
